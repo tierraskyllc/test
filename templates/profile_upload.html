@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+<title>{% block title %}Profile Upload{% endblock title %}</title>
+
+{% block content %}
+
+<body class="signup-page sidebar-collapse">
+
+  <div class="page-header header-filter" filter-color="black">
+    <div class="page-header-image"
+      style="background-image:url({% static '/assets/img/00/backgrounds/motorcycling-hero.jpg' %})"></div>
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 ml-auto mr-auto">
+            <div class="info info-horizontal">
+            </div>
+          </div>
+          <div class="col-md-4 mr-auto">
+            <div class="card card-signup">
+
+              <form class="form" method="post" enctype='multipart/form-data' action="">
+                {% csrf_token %}
+
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+
+
+                {% for field in form.visible_fields %}
+                <div class="form-group">
+                  {% for error in field.errors %}
+                  <span class="help-block">{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% endfor %}
+
+                <div class="card-body">
+                  <h4 class="card-title text-center">Profile Upload</h4>
+
+                  <div class="input-group">
+                    {% render_field form.profileImage  placeholder=form.profileImage.label %}
+                  </div>
+
+                  <button class="btn btn-primary btn-round btn-lg">Upload</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  {% endblock content %}
